@@ -37,6 +37,7 @@ public class CharacterController2D : MonoBehaviour {
 	Rigidbody2D _rigidbody;
 	Animator _animator;
 	AudioSource[] _audio;
+	SpriteRenderer _spriteRenderer = null;
 
 	// hold player motion in this timestep
 	float _vx;
@@ -81,6 +82,8 @@ public class CharacterController2D : MonoBehaviour {
 
 		// determine the platform's specified layer
 		_platformLayer = LayerMask.NameToLayer("Platform");
+
+		_spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
 	// this is where most of the player controller magic happens each game event loop
@@ -113,7 +116,7 @@ public class CharacterController2D : MonoBehaviour {
 		isGrounded = Physics2D.Linecast(_transform.position, groundCheck.position, whatIsGround);
 
 		if (isGrounded) {
-			_canDoubleJump = false;
+			_canDoubleJump = true;
 		}
 
 		if (isRunning && isGrounded) {
@@ -131,15 +134,14 @@ public class CharacterController2D : MonoBehaviour {
 
 		if (isGrounded && CrossPlatformInputManager.GetButtonDown("Jump")) {
 			DoJump();
-		}
-		//else if (_canDoubleJump && CrossPlatformInputManager.GetButtonDown("Jump")) {
-		//	DoJump();
-		//	_canDoubleJump = false;
-		//}
-	
-		// If the player stops jumping mid jump and player is not yet falling
-		// then set the vertical velocity to 0 (he will start to fall from gravity)
-		if(CrossPlatformInputManager.GetButtonUp("Jump") && _vy>0f)
+		} else if (_canDoubleJump && CrossPlatformInputManager.GetButtonDown("Jump")) {
+            DoJump();
+            _canDoubleJump = false;
+        }
+
+        // If the player stops jumping mid jump and player is not yet falling
+        // then set the vertical velocity to 0 (he will start to fall from gravity)
+        if (CrossPlatformInputManager.GetButtonUp("Jump") && _vy>0f)
 		{
 			_vy = 0f;
 		}
@@ -199,7 +201,7 @@ public class CharacterController2D : MonoBehaviour {
 			transform.parent = other.transform;
 		} else if (other.gameObject.CompareTag("Enemy")) {
 			var damage = other.gameObject.GetComponent<Enemy2>().GetDamage();
-			Hit(damage);
+			ApplyDamage((int) damage);
 		}
 	}
 
@@ -237,7 +239,10 @@ public class CharacterController2D : MonoBehaviour {
 
 			if (playerHealth <= 0) { // player is now dead, so start dying
 				PlaySound(deathSFX);
-				StartCoroutine (KillPlayer ());
+				StartCoroutine(KillPlayer());
+			} else {
+				_audio[0].PlayOneShot(hitSFX);
+				_animator.SetTrigger("Hit");
 			}
 		}
 	}
@@ -260,7 +265,13 @@ public class CharacterController2D : MonoBehaviour {
 			FreezeMotion();
 
 			// play the death animation
-			_animator.SetTrigger("Death");
+			//_animator.SetTrigger("Death");
+			var fade = _spriteRenderer.material.GetFloat("_Fade");
+
+			while (fade > 0) {
+				_spriteRenderer.material.SetFloat("_Fade", fade -= 0.1f);
+				yield return new WaitForSeconds(0.1f) ;
+			}
 			
 			// After waiting tell the GameManager to reset the game
 			yield return new WaitForSeconds(2.0f);
@@ -296,11 +307,5 @@ public class CharacterController2D : MonoBehaviour {
 		_transform.parent = null;
 		_transform.position = spawnloc;
 		_animator.SetTrigger("Respawn");
-	}
-
-	public void Hit(float damage) {
-		playerHealth -= damage;
-		_audio[0].PlayOneShot(hitSFX);
-		_animator.SetTrigger("Hit");
 	}
 }

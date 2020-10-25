@@ -59,7 +59,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8005c890dc8084f01b8409204c1f424f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -152,9 +152,9 @@ MonoBehaviour:
   groundCheck: {fileID: 8348724838512891554}
   playerCanMove: 1
   coinSFX: {fileID: 8300000, guid: 3e6c0bd0c3ce644ae907bcc2e1b7f498, type: 3}
-  deathSFX: {fileID: 0}
-  fallSFX: {fileID: 0}
-  jumpSFX: {fileID: 8300000, guid: 9d1651c86e9c943148dd13912756bddf, type: 3}
+  deathSFX: {fileID: 8300000, guid: e2e754612f1154dec9fbe57c2efbfbb3, type: 3}
+  fallSFX: {fileID: 8300000, guid: 48f1230a6dfbf4230a611dd76fa28c6b, type: 3}
+  jumpSFX: {fileID: 8300000, guid: 47c31bb930c1b473f8348a0692ad7192, type: 3}
   victorySFX: {fileID: 0}
   walkSFX: {fileID: 8300000, guid: 004280c2a978c4fdbb28aecf78fb138a, type: 3}
   hitSFX: {fileID: 8300000, guid: 0d951d93da3254feb8c71958a060a15c, type: 3}

@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 207196895622975274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.597, y: -1.132, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1}
   m_Children:
   - {fileID: 3765349906044943265}
   - {fileID: 8701409630341189640}
@@ -119,11 +119,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 207196895622975274}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 742de87627ab44145b1bd020aec65467, type: 2}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.04690802, y: -0.034894705}
+  m_Offset: {x: 0.056910038, y: -0.034894705}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -134,7 +134,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.40865397, y: 0.43063974}
+  m_Size: {x: 0.4553299, y: 0.43063974}
   m_EdgeRadius: 0
 --- !u!58 &1264079883
 CircleCollider2D:
@@ -304,7 +304,7 @@ AudioSource:
   m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128

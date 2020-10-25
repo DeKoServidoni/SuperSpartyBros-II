@@ -192,7 +192,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 6799366434025467756}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 742de87627ab44145b1bd020aec65467, type: 2}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dca7e1d04ccc4870b927c43443b2443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 4
   damageAmount: 3
   enemyHealth: 4
   deathEffect: {fileID: 1609384760049949552, guid: 5d7f823203ff44326b1d6a865478eca7, type: 3}
@@ -396,7 +396,7 @@ AudioSource:
   m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
