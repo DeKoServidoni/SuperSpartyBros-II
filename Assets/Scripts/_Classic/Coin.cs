@@ -18,15 +18,13 @@ public class Coin : MonoBehaviour {
 
 			// if explosion prefab is provide, then instantiate it
 			if (explosion)
-			{
 				Instantiate(explosion,transform.position,transform.rotation);
-			}
 
 			// do the player collect coin thing
 			other.gameObject.GetComponent<CharacterController2D>().CollectCoin(coinValue);
 
 			// destroy the coin
-			DestroyObject(this.gameObject);
+			Destroy(gameObject);
 		}
 	}
 

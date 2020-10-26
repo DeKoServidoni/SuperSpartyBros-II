@@ -12,7 +12,7 @@ public class CharacterController2D : MonoBehaviour {
 	public float jumpForce = 600f;
 
 	// player health
-	public float playerHealth = 50.0f;
+	public float playerHealth = 1.0f;
 
 	// LayerMask to determine what is considered ground for the player
 	public LayerMask whatIsGround;
@@ -59,6 +59,7 @@ public class CharacterController2D : MonoBehaviour {
 
 	[SerializeField] private AudioClip walkSFX;
 	[SerializeField] private AudioClip hitSFX;
+	[SerializeField] private AudioClip drinkSFX;
 	[SerializeField] private ParticleSystem dustEffect = null;
 	
 	void Awake () {
@@ -89,6 +90,7 @@ public class CharacterController2D : MonoBehaviour {
 	// this is where most of the player controller magic happens each game event loop
 	void Update()
 	{
+
 		// exit update if player cannot move or game is paused
 		if (!playerCanMove || (Time.timeScale == 0f))
 			return;
@@ -196,12 +198,13 @@ public class CharacterController2D : MonoBehaviour {
 	// if the player collides with a MovingPlatform, then make it a child of that platform
 	// so it will go for a ride on the MovingPlatform
 	void OnCollisionEnter2D(Collision2D other) {
-
 		if (other.gameObject.CompareTag("MovingPlatform")) {
 			transform.parent = other.transform;
 		} else if (other.gameObject.CompareTag("Enemy")) {
 			var damage = other.gameObject.GetComponent<Enemy2>().GetDamage();
-			ApplyDamage((int) damage);
+			ApplyDamage((int)damage);
+		} else if (other.gameObject.CompareTag("DeathZone")) {
+			FallDeath();
 		}
 	}
 
@@ -264,6 +267,9 @@ public class CharacterController2D : MonoBehaviour {
 			// freeze the player
 			FreezeMotion();
 
+			if (GameManager2.gm)
+				GameManager2.gm.YouDied();
+
 			// play the death animation
 			//_animator.SetTrigger("Death");
 			var fade = _spriteRenderer.material.GetFloat("_Fade");
@@ -276,18 +282,28 @@ public class CharacterController2D : MonoBehaviour {
 			// After waiting tell the GameManager to reset the game
 			yield return new WaitForSeconds(2.0f);
 
-			if (GameManager.gm) // if the gameManager is available, tell it to reset the game
-				GameManager.gm.ResetGame();
-			else // otherwise, just reload the current level
-				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		}
+			if (GameManager2.gm) {// if the gameManager is available, tell it to reset the game
+				GameManager2.gm.ResetGame();
+				if(!GameManager2.gm.IsGameOver())
+					_spriteRenderer.material.SetFloat("_Fade", 1f);
+			}
+            //else // otherwise, just reload the current level
+            //	SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+	}
+
+	public void CollectPotion() {
+		PlaySound(drinkSFX);
+
+		if (GameManager2.gm)
+			GameManager2.gm.AddLife();
 	}
 
 	public void CollectCoin(int amount) {
 		PlaySound(coinSFX);
 
-		if (GameManager.gm) // add the points through the game manager, if it is available
-			GameManager.gm.AddPoints(amount);
+		if (GameManager2.gm) // add the points through the game manager, if it is available
+			GameManager2.gm.AddPoints(amount);
 	}
 
 	// public function on victory over the level
@@ -296,16 +312,16 @@ public class CharacterController2D : MonoBehaviour {
 		FreezeMotion ();
 		_animator.SetTrigger("Victory");
 
-		if (GameManager.gm) // do the game manager level compete stuff, if it is available
-			GameManager.gm.LevelCompete();
+		//if (GameManager.gm) // do the game manager level compete stuff, if it is available
+		//	GameManager.gm.LevelCompete();
 	}
 
 	// public function to respawn the player at the appropriate location
 	public void Respawn(Vector3 spawnloc) {
 		UnFreezeMotion();
-		playerHealth = 1;
+		playerHealth = 3;
 		_transform.parent = null;
 		_transform.position = spawnloc;
-		_animator.SetTrigger("Respawn");
+		//_animator.SetTrigger("Respawn");
 	}
 }

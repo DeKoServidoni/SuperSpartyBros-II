@@ -158,6 +158,7 @@ MonoBehaviour:
   victorySFX: {fileID: 0}
   walkSFX: {fileID: 8300000, guid: 004280c2a978c4fdbb28aecf78fb138a, type: 3}
   hitSFX: {fileID: 8300000, guid: 0d951d93da3254feb8c71958a060a15c, type: 3}
+  drinkSFX: {fileID: 8300000, guid: cf03c1d697e0245959d05dd618aa0325, type: 3}
   dustEffect: {fileID: 704702130}
 --- !u!58 &8348724837780076128
 CircleCollider2D:

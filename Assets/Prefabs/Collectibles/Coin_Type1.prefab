@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3d4d560476ef48f3bad471b1ec7fba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinValue: 2
+  coinValue: 1
   taken: 0
   explosion: {fileID: 6908020550538382017, guid: 924c7134a0ca9414b9f0c9f04feb5d41, type: 3}
 --- !u!58 &2055292769
