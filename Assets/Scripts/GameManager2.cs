@@ -104,14 +104,14 @@ public class GameManager2 : MonoBehaviour {
 	void PlayLevelCompleteMusic() {
 		Camera.main.GetComponent<CameraManager2>().StopBackgroundMusic();
 		audioSources[0].Stop();
-		audioSources[3].Stop();
+		if(audioSources.Length >= 4) audioSources[3].Stop();
 		audioSources[2].Play();
 	}
 
 	void PlayGameOverMusic() {
 		Camera.main.GetComponent<CameraManager2>().StopBackgroundMusic();
 		audioSources[0].Stop();
-		audioSources[3].Stop();
+		if(audioSources.Length >= 4) audioSources[3].Stop();
 		audioSources[1].Play();
 	}
 

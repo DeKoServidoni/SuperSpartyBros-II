@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Enemy2 : MonoBehaviour {
 
@@ -21,6 +22,7 @@ public class Enemy2 : MonoBehaviour {
 	private Rigidbody2D rigidBody;
 	private Animator animator;
 	private AudioSource[] audioSources;
+	SpriteRenderer spriteRenderer = null;
 
 	private float moveTime;
 	private float direction = 0.0f;
@@ -43,7 +45,8 @@ public class Enemy2 : MonoBehaviour {
 		moving = true;
 
 		deathLayer = LayerMask.NameToLayer("Death");
-		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), deathLayer, true); 
+		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), deathLayer, true);
+		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
     void Update() {
@@ -130,24 +133,23 @@ public class Enemy2 : MonoBehaviour {
 		audioSources[1].Stop();
 	}
 
-	private void KillEnemy() {
-		StopWalkSFX();
-			dustEffect.Stop();
+	IEnumerator KillEnemy() {
+		moving = false;
+		animator.SetBool("Moving", false);
 
-			rigidBody.velocity = new Vector2(0, 0);
-			gameObject.layer = deathLayer;
+		dustEffect.Stop();
+		rigidBody.velocity = new Vector2(0, 0);
 
-			if(hitCheck)
-				hitCheck.layer = deathLayer;
+		var fade = spriteRenderer.material.GetFloat("_Fade");
 
-			if(deathEffect)
-				Instantiate(deathEffect,transform.position,transform.rotation);
+		while (fade > 0) {
+			spriteRenderer.material.SetFloat("_Fade", fade -= 0.1f);
+			yield return new WaitForSeconds(0.2f) ;
+		}
 
-			audioSources[0].PlayOneShot(deathSFX);
-
-			GetComponent<SpriteRenderer>().enabled = false;
-            Destroy(gameObject, 0.505f);
-	}
+		GetComponent<SpriteRenderer>().enabled = false;
+		Destroy(gameObject, 0.505f);
+    }
 
 	// Public methods
 
@@ -163,7 +165,7 @@ public class Enemy2 : MonoBehaviour {
 		enemyHealth -= damage;
 
 		if (enemyHealth <= 0) {
-			KillEnemy();
+			StartCoroutine(KillEnemy());
 			if (isBoss) {
 				GameManager2.gm.EndBossBattle();
 			}
