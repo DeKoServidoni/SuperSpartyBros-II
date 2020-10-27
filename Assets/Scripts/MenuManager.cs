@@ -7,11 +7,22 @@ public class MenuManager : MonoBehaviour {
 
 	[SerializeField] private string nextLevelScene;
 	[SerializeField] private string mainMenuScene;
+	[SerializeField] private Text instructions;
 
 	private string currentScene;
 
     private void Awake() {
         currentScene = SceneManager.GetActiveScene().name;
+    }
+
+    private void Start() {
+		if (instructions)
+			StartCoroutine(DismissInstructions());
+    }
+
+	IEnumerator DismissInstructions() {
+		yield return new WaitForSeconds(5f) ;
+		Destroy(instructions);
     }
 
     public void OnExitClick() {

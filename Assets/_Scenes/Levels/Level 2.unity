@@ -59205,7 +59205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevelScene: Level 2
-  mainMenuScene: MainMenu
+  mainMenuScene: Main Menu
 --- !u!82 &1216038611
 AudioSource:
   m_ObjectHideFlags: 0
