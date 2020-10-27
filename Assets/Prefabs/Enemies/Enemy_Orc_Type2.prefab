@@ -193,6 +193,7 @@ MonoBehaviour:
   deathSFX: {fileID: 8300000, guid: 229da4419a22142f08dc87ea97b8acc0, type: 3}
   hitSFX: {fileID: 8300000, guid: 93fee452841424a218c2acfe6ee41bc0, type: 3}
   dustEffect: {fileID: 7422939736893440154}
+  isBoss: 0
 --- !u!82 &752979523175480545
 AudioSource:
   m_ObjectHideFlags: 0
@@ -412,7 +413,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3528450487231616677}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1901120605866614098}

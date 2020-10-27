@@ -49597,6 +49597,7 @@ MonoBehaviour:
   UIGameOver: {fileID: 1149139723}
   UIVictory: {fileID: 1479877277}
   UIDied: {fileID: 1949281391}
+  bossTreasure: {fileID: 0}
 --- !u!4 &1216038608
 Transform:
   m_ObjectHideFlags: 0
@@ -51679,7 +51680,7 @@ PrefabInstance:
       objectReference: {fileID: 2974065048684720940, guid: 9b283fa8a4a144a6a88c45621b477b1a, type: 3}
     - target: {fileID: 1465304369, guid: b5d44d08e2f1d482ebfe21c46a79897f, type: 3}
       propertyPath: waitAtWaypointTime
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7934349287562393754, guid: b5d44d08e2f1d482ebfe21c46a79897f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51735,7 +51736,11 @@ PrefabInstance:
       objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7934349287630484219, guid: b5d44d08e2f1d482ebfe21c46a79897f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.6
+      value: -4.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 7934349287630484219, guid: b5d44d08e2f1d482ebfe21c46a79897f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.77
       objectReference: {fileID: 0}
     - target: {fileID: 7934349288145966950, guid: b5d44d08e2f1d482ebfe21c46a79897f, type: 3}
       propertyPath: m_LocalPosition.x

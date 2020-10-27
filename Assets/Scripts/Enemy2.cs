@@ -81,7 +81,7 @@ public class Enemy2 : MonoBehaviour {
 			
 			direction = myWaypoints[myWaypointIndex].transform.position.x- transform.position.x;
 			
-			if (Mathf.Abs(direction) <= 0.05f) {
+			if (Mathf.Abs(direction) <= 0.5f) {
 				rigidBody.velocity = new Vector2(0, 0);
 				myWaypointIndex++;
 				
