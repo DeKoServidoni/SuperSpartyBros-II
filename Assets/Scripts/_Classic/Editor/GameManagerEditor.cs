@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEditor; // this is needed since this script references the Unity Editor
 
-[CustomEditor(typeof(GameManager))]
+[CustomEditor(typeof(GameManager2))]
 public class GameManagerEditor : Editor { // extend the Editor class
 
 	// called when Unity Editor Inspector is updated
@@ -12,13 +12,13 @@ public class GameManagerEditor : Editor { // extend the Editor class
 		DrawDefaultInspector();
 
 		// get a reference to the GameManager script on this target gameObject
-		GameManager myGM = (GameManager)target;
+		GameManager2 myGM = (GameManager2)target;
 
 		// add a custom button to the Inspector component
 		if(GUILayout.Button("Reset Player State"))
 		{
 			// if button pressed, then call function in script
-			PlayerPrefManager.ResetPlayerState(myGM.startLives, false);
+			PlayerPrefManager.ResetPlayerState(myGM.GetStartLives(), false);
 		}
 
 		// add a custom button to the Inspector component

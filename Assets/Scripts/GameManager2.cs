@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -16,18 +15,22 @@ public class GameManager2 : MonoBehaviour {
 	[SerializeField] private GameObject UIGameOver;
 	[SerializeField] private GameObject UIVictory;
 	[SerializeField] private GameObject UIDied;
+	[SerializeField] private GameObject bossTreasure;
 
 	private GameObject player;
 	private Scene scene;
-	private AudioSource audioSource;
+	private AudioSource[] audioSources;
 	private bool gameOver = false;
 
 	private int lives = 0;
 	private int highScore = 0;
 
 	void Awake () {
-		audioSource = GetComponent<AudioSource>();
-		if (!audioSource)
+		if (bossTreasure)
+			bossTreasure.SetActive(false);
+
+		audioSources = GetComponents<AudioSource>();
+		if (audioSources == null)
 			Debug.LogError("Missing audio source!");
 
 		if (gm == null)
@@ -90,12 +93,32 @@ public class GameManager2 : MonoBehaviour {
 	}
 
 	void RefreshLives() {
-		if (lives == 1) audioSource.Play();
-		else audioSource.Stop();
+		if (lives == 1) audioSources[0].Play();
+		else audioSources[0].Stop();
 
 		for(int i=0; i<UILives.Length; i++) {
 			UILives[i].SetActive(i<lives);
 		}
+	}
+
+	void PlayLevelCompleteMusic() {
+		Camera.main.GetComponent<CameraManager2>().StopBackgroundMusic();
+		audioSources[0].Stop();
+		audioSources[3].Stop();
+		audioSources[2].Play();
+	}
+
+	void PlayGameOverMusic() {
+		Camera.main.GetComponent<CameraManager2>().StopBackgroundMusic();
+		audioSources[0].Stop();
+		audioSources[3].Stop();
+		audioSources[1].Play();
+	}
+
+	void PlayBossMusic() {
+		Camera.main.GetComponent<CameraManager2>().StopBackgroundMusic();
+		audioSources[0].Stop();
+		audioSources[3].Play();
 	}
 
 	public void AddPoints(int amount) {
@@ -125,6 +148,7 @@ public class GameManager2 : MonoBehaviour {
 		if (lives <= 0) {
 			PlayerPrefManager.SavePlayerState(score, highScore, startLives);
 			UIGameOver.SetActive(true);
+			PlayGameOverMusic();
 			gameOver = true;
 		} else {
 			PlayerPrefManager.SavePlayerState(0, 0, lives);
@@ -134,10 +158,26 @@ public class GameManager2 : MonoBehaviour {
 
     public void LevelComplete() {
 		PlayerPrefManager.SavePlayerState(score, highScore, lives);
+		PlayLevelCompleteMusic();
 		UIVictory.SetActive(true);
+	}
+
+	public void EndBossBattle() {
+		if (bossTreasure) {
+			audioSources[3].Stop();
+			bossTreasure.SetActive(true);
+		}
+	}
+
+	public void StartBossBattle() {
+		PlayBossMusic();
 	}
 
 	public bool IsGameOver() {
 		return gameOver;
+	}
+
+	public int GetStartLives() {
+		return startLives;
 	}
 }

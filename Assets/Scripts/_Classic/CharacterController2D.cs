@@ -201,8 +201,7 @@ public class CharacterController2D : MonoBehaviour {
 		if (other.gameObject.CompareTag("MovingPlatform")) {
 			transform.parent = other.transform;
 		} else if (other.gameObject.CompareTag("Enemy")) {
-			var damage = other.gameObject.GetComponent<Enemy2>().GetDamage();
-			ApplyDamage((int)damage);
+			ApplyDamage(100);
 		} else if (other.gameObject.CompareTag("DeathZone")) {
 			FallDeath();
 		}

@@ -10,6 +10,7 @@ public class Enemy2 : MonoBehaviour {
 	[SerializeField] private AudioClip deathSFX;
 	[SerializeField] private AudioClip hitSFX;
 	[SerializeField] private ParticleSystem dustEffect = null;
+	[SerializeField] private bool isBoss = false;
 
     private GameObject[] myWaypoints = null; 
 	private float waitAtWaypointTime = 1f;   
@@ -56,6 +57,7 @@ public class Enemy2 : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
 			Flip(other.transform.position.x-transform.position.x);
+			other.GetComponent<CharacterController2D>().ApplyDamage(100);
 			rigidBody.isKinematic = true;
 		}
     }
@@ -128,21 +130,8 @@ public class Enemy2 : MonoBehaviour {
 		audioSources[1].Stop();
 	}
 
-	// Public methods
-
-	public void SetupPatrol(GameObject[] myWaypoints, float waitAtWaypointTime, int myWaypointIndex) {
-		this.myWaypoints = myWaypoints;
-		this.waitAtWaypointTime = waitAtWaypointTime;
-		this.myWaypointIndex = myWaypointIndex;
-	}
-
-	public void Hit(int damage) {
-		animator.SetTrigger("Hit");
-		audioSources[0].PlayOneShot(hitSFX);
-		enemyHealth -= damage;
-
-		if (enemyHealth <= 0) {
-			StopWalkSFX();
+	private void KillEnemy() {
+		StopWalkSFX();
 			dustEffect.Stop();
 
 			rigidBody.velocity = new Vector2(0, 0);
@@ -158,6 +147,26 @@ public class Enemy2 : MonoBehaviour {
 
 			GetComponent<SpriteRenderer>().enabled = false;
             Destroy(gameObject, 0.505f);
+	}
+
+	// Public methods
+
+	public void SetupPatrol(GameObject[] myWaypoints, float waitAtWaypointTime, int myWaypointIndex) {
+		this.myWaypoints = myWaypoints;
+		this.waitAtWaypointTime = waitAtWaypointTime;
+		this.myWaypointIndex = myWaypointIndex;
+	}
+
+	public void Hit(int damage) {
+		animator.SetTrigger("Hit");
+		audioSources[0].PlayOneShot(hitSFX);
+		enemyHealth -= damage;
+
+		if (enemyHealth <= 0) {
+			KillEnemy();
+			if (isBoss) {
+				GameManager2.gm.EndBossBattle();
+			}
         }
 	}
 

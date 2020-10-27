@@ -5,6 +5,7 @@ public class CameraFollow : MonoBehaviour {
 
     [SerializeField] private Transform target = null;
     [SerializeField] private Vector3 offset = Vector3.zero;
+    [SerializeField] private float cameraLimit = 0.0f;
 
     private void Awake() {
         if (!target)
@@ -12,11 +13,12 @@ public class CameraFollow : MonoBehaviour {
     }
 
     private void Update() {
-
-        if (transform.position.x < 81f) {
+        if (target) {
             Vector3 position = transform.position;
             position.x = (target.position + offset).x;
-            transform.position = position;
+
+            if (transform.position.x < cameraLimit || position.x < cameraLimit)
+                transform.position = position;
         }
     }
 }
