@@ -125,7 +125,7 @@ Transform:
   m_GameObject: {fileID: 2783972876826305026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.006, y: -1.745, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 8181371594604865527}
   - {fileID: 3576465154487965126}
@@ -151,7 +151,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8005c890dc8084f01b8409204c1f424f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -277,14 +277,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dca7e1d04ccc4870b927c43443b2443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 5
   damageAmount: 5
   enemyHealth: 6
-  deathEffect: {fileID: 1609384760049949552, guid: 5d7f823203ff44326b1d6a865478eca7, type: 3}
-  hitCheck: {fileID: 2096555883, guid: aad196be0622d45339b819f74da18359, type: 3}
-  deathSFX: {fileID: 8300000, guid: 229da4419a22142f08dc87ea97b8acc0, type: 3}
   hitSFX: {fileID: 8300000, guid: 93fee452841424a218c2acfe6ee41bc0, type: 3}
   dustEffect: {fileID: 5538074488751273327, guid: aad196be0622d45339b819f74da18359, type: 3}
+  hitCheck: {fileID: 17050920347804165}
   isBoss: 1
 --- !u!82 &7121862822935625870
 AudioSource:

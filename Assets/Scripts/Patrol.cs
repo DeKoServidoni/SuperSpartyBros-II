@@ -13,7 +13,7 @@ public class Patrol : MonoBehaviour {
 	}
 
     void Start() {
-        var newEnemy = Instantiate(enemy,
+		var newEnemy = Instantiate(enemy,
                 new Vector3(transform.position.x, transform.position.y, 0.0f),
                 Quaternion.identity);
 

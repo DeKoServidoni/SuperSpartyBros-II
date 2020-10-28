@@ -280,11 +280,10 @@ MonoBehaviour:
   moveSpeed: 4
   damageAmount: 3
   enemyHealth: 4
-  deathEffect: {fileID: 1609384760049949552, guid: 5d7f823203ff44326b1d6a865478eca7, type: 3}
-  hitCheck: {fileID: 0}
-  deathSFX: {fileID: 8300000, guid: 229da4419a22142f08dc87ea97b8acc0, type: 3}
   hitSFX: {fileID: 8300000, guid: 93fee452841424a218c2acfe6ee41bc0, type: 3}
   dustEffect: {fileID: 3576465153607445316}
+  hitCheck: {fileID: 0}
+  isBoss: 0
 --- !u!82 &7657991531402418660
 AudioSource:
   m_ObjectHideFlags: 0

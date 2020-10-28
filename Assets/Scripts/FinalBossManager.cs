@@ -50,6 +50,7 @@ public class FinalBossManager : MonoBehaviour {
     }
 
     private void StartFinalBattle() {
+        gameManager.StartBossBattle();
         gameManager.EnablePlayer(true);
         boss.SetActive(false);
         bossFirstForm.SetActive(true);

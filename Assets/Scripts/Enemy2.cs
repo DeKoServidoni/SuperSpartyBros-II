@@ -6,11 +6,9 @@ public class Enemy2 : MonoBehaviour {
 	[SerializeField] [Range(0.0f, 10.0f)] private float moveSpeed = 4f;
 	[SerializeField] private float damageAmount = 5.0f;
 	[SerializeField] private int enemyHealth = 1;
-	[SerializeField] private GameObject deathEffect = null;
-	[SerializeField] private GameObject hitCheck = null;
-	[SerializeField] private AudioClip deathSFX;
 	[SerializeField] private AudioClip hitSFX;
 	[SerializeField] private ParticleSystem dustEffect = null;
+	[SerializeField] private GameObject hitCheck = null;
 	[SerializeField] private bool isBoss = false;
 
     private GameObject[] myWaypoints = null; 
@@ -101,7 +99,6 @@ public class Enemy2 : MonoBehaviour {
 				PlayWalkSFX();
 				dustEffect.Play();
 			}
-			
 		}
 	}
 
@@ -139,6 +136,8 @@ public class Enemy2 : MonoBehaviour {
 
 		dustEffect.Stop();
 		rigidBody.velocity = new Vector2(0, 0);
+
+		Destroy(hitCheck);
 		gameObject.layer = deathLayer;
 
 		var fade = spriteRenderer.material.GetFloat("_Fade");
@@ -151,8 +150,6 @@ public class Enemy2 : MonoBehaviour {
 		GetComponent<SpriteRenderer>().enabled = false;
 		Destroy(gameObject, 0.505f);
     }
-
-	// Public methods
 
 	public void SetupPatrol(GameObject[] myWaypoints, float waitAtWaypointTime, int myWaypointIndex) {
 		this.myWaypoints = myWaypoints;

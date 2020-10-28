@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 2096555886}
   - component: {fileID: 2096555885}
   - component: {fileID: 2096555884}
-  m_Layer: 12
+  m_Layer: 14
   m_Name: HitCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2096555887
 Transform:
   m_ObjectHideFlags: 0
@@ -280,11 +280,9 @@ MonoBehaviour:
   moveSpeed: 4
   damageAmount: 5
   enemyHealth: 6
-  deathEffect: {fileID: 1609384760049949552, guid: 5d7f823203ff44326b1d6a865478eca7, type: 3}
-  hitCheck: {fileID: 2096555883}
-  deathSFX: {fileID: 8300000, guid: 229da4419a22142f08dc87ea97b8acc0, type: 3}
   hitSFX: {fileID: 8300000, guid: 93fee452841424a218c2acfe6ee41bc0, type: 3}
   dustEffect: {fileID: 5538074488751273327}
+  hitCheck: {fileID: 2096555883}
   isBoss: 1
 --- !u!82 &4361899478784103450
 AudioSource:
