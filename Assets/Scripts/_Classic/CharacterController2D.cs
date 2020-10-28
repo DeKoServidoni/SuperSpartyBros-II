@@ -90,7 +90,6 @@ public class CharacterController2D : MonoBehaviour {
 	// this is where most of the player controller magic happens each game event loop
 	void Update()
 	{
-
 		// exit update if player cannot move or game is paused
 		if (!playerCanMove || (Time.timeScale == 0f))
 			return;
@@ -216,14 +215,15 @@ public class CharacterController2D : MonoBehaviour {
 	}
 
 	// do what needs to be done to freeze the player
- 	void FreezeMotion() {
+ 	public void FreezeMotion() {
+		_animator.SetBool("Running", false);
 		playerCanMove = false;
         _rigidbody.velocity = new Vector2(0,0);
 		_rigidbody.isKinematic = true;
 	}
 
 	// do what needs to be done to unfreeze the player
-	void UnFreezeMotion() {
+	public void UnFreezeMotion() {
 		playerCanMove = true;
 		_rigidbody.isKinematic = false;
 	}

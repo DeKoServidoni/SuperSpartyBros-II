@@ -180,4 +180,11 @@ public class GameManager2 : MonoBehaviour {
 	public int GetStartLives() {
 		return startLives;
 	}
+
+	public void EnablePlayer(bool enable) {
+		var controller = player.GetComponent<CharacterController2D>();
+
+		if (!enable) controller.FreezeMotion();
+		else controller.UnFreezeMotion();
+	}
 }

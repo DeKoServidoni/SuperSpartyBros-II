@@ -8,11 +8,15 @@ public class MenuManager : MonoBehaviour {
 	[SerializeField] private string nextLevelScene;
 	[SerializeField] private string mainMenuScene;
 	[SerializeField] private Text instructions;
+	[SerializeField] private LevelLoader levelLoader;
 
 	private string currentScene;
 
     private void Awake() {
         currentScene = SceneManager.GetActiveScene().name;
+
+		if (!levelLoader)
+			Debug.LogError("Missing level loader!");
     }
 
     private void Start() {
@@ -34,6 +38,6 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void OnNextLevelClick() {
-		SceneManager.LoadScene(nextLevelScene);
+		levelLoader.LoadNextScene(nextLevelScene);
 	}
 }

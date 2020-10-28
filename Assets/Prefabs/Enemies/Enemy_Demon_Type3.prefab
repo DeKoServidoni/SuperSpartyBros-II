@@ -281,10 +281,11 @@ MonoBehaviour:
   damageAmount: 5
   enemyHealth: 6
   deathEffect: {fileID: 1609384760049949552, guid: 5d7f823203ff44326b1d6a865478eca7, type: 3}
-  hitCheck: {fileID: 0}
+  hitCheck: {fileID: 2096555883, guid: aad196be0622d45339b819f74da18359, type: 3}
   deathSFX: {fileID: 8300000, guid: 229da4419a22142f08dc87ea97b8acc0, type: 3}
   hitSFX: {fileID: 8300000, guid: 93fee452841424a218c2acfe6ee41bc0, type: 3}
-  dustEffect: {fileID: 3576465154487965124}
+  dustEffect: {fileID: 5538074488751273327, guid: aad196be0622d45339b819f74da18359, type: 3}
+  isBoss: 1
 --- !u!82 &7121862822935625870
 AudioSource:
   m_ObjectHideFlags: 0
@@ -545,10 +546,5 @@ PrefabInstance:
 --- !u!4 &3576465154487965126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3576465154418362391, guid: ad05dede223954b40ae0f8fda5e4fffd, type: 3}
-  m_PrefabInstance: {fileID: 75111889}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &3576465154487965124 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3576465154418362389, guid: ad05dede223954b40ae0f8fda5e4fffd, type: 3}
   m_PrefabInstance: {fileID: 75111889}
   m_PrefabAsset: {fileID: 0}

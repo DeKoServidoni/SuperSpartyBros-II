@@ -139,6 +139,7 @@ public class Enemy2 : MonoBehaviour {
 
 		dustEffect.Stop();
 		rigidBody.velocity = new Vector2(0, 0);
+		gameObject.layer = deathLayer;
 
 		var fade = spriteRenderer.material.GetFloat("_Fade");
 
