@@ -199,8 +199,6 @@ public class CharacterController2D : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.CompareTag("MovingPlatform")) {
 			transform.parent = other.transform;
-		} else if (other.gameObject.CompareTag("Enemy")) {
-			ApplyDamage(100);
 		} else if (other.gameObject.CompareTag("DeathZone")) {
 			FallDeath();
 		}

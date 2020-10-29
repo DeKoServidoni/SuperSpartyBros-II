@@ -146,12 +146,13 @@ public class GameManager2 : MonoBehaviour {
         RefreshGUI();
 
 		if (lives <= 0) {
-			PlayerPrefManager.SavePlayerState(score, highScore, startLives);
+			PlayerPrefManager.SavePlayerState(score, 0, startLives);
+			PlayerPrefManager.CleanAlreadyTalkedFlag();
 			UIGameOver.SetActive(true);
 			PlayGameOverMusic();
 			gameOver = true;
 		} else {
-			PlayerPrefManager.SavePlayerState(0, 0, lives);
+			PlayerPrefManager.SavePlayerState(0, highScore, lives);
 			SceneManager.LoadScene(scene.name); 
 		}
     }

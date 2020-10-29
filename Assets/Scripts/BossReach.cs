@@ -29,6 +29,6 @@ public class BossReach : MonoBehaviour {
 
 	void StartFinalBossBattle() {
 		GetComponent<BoxCollider2D>().enabled = false;
-		StartCoroutine(finalBossManager.RunTalk(false));
+		StartCoroutine(finalBossManager.RunTalk(true));
 	}
 }

@@ -40,6 +40,18 @@ public static class PlayerPrefManager {
 		PlayerPrefs.SetInt("Highscore",highscore);
 	}
 
+	public static bool IsTalked() {
+		return PlayerPrefs.GetInt("conversation") == 1;
+	}
+
+	public static void SetAlreadyTalkedFlag() {
+		PlayerPrefs.SetInt("conversation", 1);
+	}
+
+	public static void CleanAlreadyTalkedFlag() {
+		PlayerPrefs.SetInt("conversation", 0);
+	}
+
 
 	// story the current player state info into PlayerPrefs
 	public static void SavePlayerState(int score, int highScore, int lives) {
@@ -54,6 +66,7 @@ public static class PlayerPrefManager {
 		Debug.Log ("Player State reset.");
 		PlayerPrefs.SetInt("Lives",startLives);
 		PlayerPrefs.SetInt("Score", 0);
+		CleanAlreadyTalkedFlag();
 
 		if (resetHighscore)
 			PlayerPrefs.SetInt("Highscore", 0);

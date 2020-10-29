@@ -16,14 +16,14 @@ public class FinalBossManager : MonoBehaviour {
 
     void Awake() {
         audioSource = GetComponent<AudioSource>();
-		if (!audioSource)
-			Debug.LogError("Missing audio source!");
+        if (!audioSource)
+            Debug.LogError("Missing audio source!");
     }
 
     void Start() {
         gameManager = GameManager2.gm;
-		if (!gameManager)
-			Debug.LogError("Missing game manager instance!");
+        if (!gameManager)
+            Debug.LogError("Missing game manager instance!");
     }
 
     public IEnumerator RunTalk(bool initial) {
@@ -32,18 +32,23 @@ public class FinalBossManager : MonoBehaviour {
 
         gameManager.EnablePlayer(false);
 
-        foreach(GameObject talk in conversation) {
-            if (previous != null)
-                previous.SetActive(false);
+        if (!PlayerPrefManager.IsTalked()) {
 
-            talk.SetActive(true);
-            audioSource.PlayOneShot(talkSFX);
-            previous = talk;
+            foreach (GameObject talk in conversation) {
+                if (previous != null)
+                    previous.SetActive(false);
 
-            yield return new WaitForSeconds(7f);
+                talk.SetActive(true);
+                audioSource.PlayOneShot(talkSFX);
+                previous = talk;
+
+                yield return new WaitForSeconds(7f);
+            }
+
+            previous.SetActive(false);
+
+            PlayerPrefManager.SetAlreadyTalkedFlag();
         }
-
-        previous.SetActive(false);
 
         if (initial) StartFinalBattle();
         else gameManager.LevelComplete();

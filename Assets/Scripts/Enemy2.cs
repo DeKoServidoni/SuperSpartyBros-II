@@ -25,6 +25,7 @@ public class Enemy2 : MonoBehaviour {
 	private float moveTime;
 	private float direction = 0.0f;
 	private bool moving = true;
+	private bool dying = false;
 
 	void Awake() {
 		rigidBody = GetComponent<Rigidbody2D> ();
@@ -56,6 +57,8 @@ public class Enemy2 : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+		if (dying) return;
+
         if (other.CompareTag("Player")) {
 			Flip(other.transform.position.x-transform.position.x);
 			other.GetComponent<CharacterController2D>().ApplyDamage(100);
@@ -64,12 +67,16 @@ public class Enemy2 : MonoBehaviour {
     }
 
     private void OnTriggerStay2D(Collider2D other) {
+		if (dying) return;
+
         if (other.CompareTag("Player")) {
 			rigidBody.isKinematic = true;
 		}
     }
 
     private void OnTriggerExit2D(Collider2D other) {
+		if (dying) return;
+
         if (other.CompareTag("Player")) {
 			rigidBody.isKinematic = false;
 		}
@@ -131,6 +138,7 @@ public class Enemy2 : MonoBehaviour {
 	}
 
 	IEnumerator KillEnemy() {
+		dying = true;
 		moving = false;
 		animator.SetBool("Moving", false);
 
@@ -138,7 +146,6 @@ public class Enemy2 : MonoBehaviour {
 		rigidBody.velocity = new Vector2(0, 0);
 
 		Destroy(hitCheck);
-		gameObject.layer = deathLayer;
 
 		var fade = spriteRenderer.material.GetFloat("_Fade");
 
@@ -147,8 +154,7 @@ public class Enemy2 : MonoBehaviour {
 			yield return new WaitForSeconds(0.2f) ;
 		}
 
-		GetComponent<SpriteRenderer>().enabled = false;
-		Destroy(gameObject, 0.505f);
+		Destroy(gameObject);
     }
 
 	public void SetupPatrol(GameObject[] myWaypoints, float waitAtWaypointTime, int myWaypointIndex) {
@@ -163,6 +169,7 @@ public class Enemy2 : MonoBehaviour {
 		enemyHealth -= damage;
 
 		if (enemyHealth <= 0) {
+			dying = true;
 			StartCoroutine(KillEnemy());
 			if (isBoss) {
 				GameManager2.gm.EndBossBattle();
